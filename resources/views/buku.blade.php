@@ -58,19 +58,28 @@
   <table border=5>
 
         <tr>
-            <th> ID </th>
-            <th> Kategori </th>
+            <th> Id Jenis </th>
+            <th> Judul </th>
+            <th> Tahun terbit </th>
+            <th> Halaman </th>
+            <th> Penulis </th>
+            <th> Stok </th>
             <th> Aksi </th>
   </tr>
-        @foreach($kategori as $row)
+        @foreach($buku as $row)
         <tr>
             
-                <th>{{ $row->id }}</th>
-                <th>{{ $row->nama_kategori }}</th>
-             
+                <th>{{ $row->id_buku }}</th>
+                <th>{{ $row->Id_jenis }}</th>
+                <th>{{ $row->Judul }}</th>
+                <th>{{ $row->Tahun_terbit }}</th>
+                <th>{{ $row->Halaman }}</th>
+                <th>{{ $row->Penulis }}</th>
+                <th>{{ $row->Stok }}</th>
+                <th>{{ $row->Aksi }}</th>
                 <th> 
-                    <a href="/id/edit/{{$row->id}}">Edit</a>
-                    <a href="/id/hapus/{{$row->id}}">Hapus</a>
+                    <a href="/id/edit/{{$row->id_buku}}">Edit</a>
+                    <a href="/id/hapus/{{$row->id_buku}}">Hapus</a>
         </tr>
         @endforeach
 </table>

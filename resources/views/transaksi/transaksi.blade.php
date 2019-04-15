@@ -5,13 +5,13 @@
     <!-- Content Header (Page header) -->
     <!-- Content Header (Page header) -->
     <section class="content-header">
-<h1>Daftar Buku</h1>
+<h1>RENTBOOK</h1>
 <br>
       <div class="box box-danger">
             <div class="box-header with-border">
               <h3 class="box-title">Form Search</h3>
             </div>
-            <form action="/kategori" method="GET">
+            <form action="">
 
             <div class="box-body">
               <div class="row">
@@ -22,7 +22,7 @@
                 </div>
                 <!-- /btn-group -->
                 
-                <input type="text" class="form-control" name="cari" placeholder="Cari Data">
+                <input type="text" class="form-control" name="keyword" placeholder="Cari Data">
               </div>
                 </div>
               </div>
@@ -34,7 +34,7 @@
 
           <div class="box box-danger">
             <div class="box-header">
-              <h3 class="box-title">List Daftar Buku</h3>
+              <h3 class="box-title">Daftra Jenis Buku</h3>
        
             </div>
             <div class="box-body">
@@ -50,46 +50,42 @@
                 <h4 class="modal-title">Tambah Data</h4>
               </div>
               <div class="modal-body">
-              <form method="post" action="{{route('kategori.store')}}" >
+              
+              <form method="post" action="{{route('transaksi.store')}}" >
               {{csrf_field()}}
+
+             
+              
               <div class="box-body">
                 <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">Id Jenis</label>
+                <label for="inputEmail3" class="col-sm-3 control-label">Id Buku</label>
+                <div class="col-sm-9">                  
+									<select class="form-control" name="id_buku" class="select2me">
+                  @foreach($id_buku as $buk)
+                    <option value="{{ $buk->id_buku }}">{{ $buk->id_buku }}</option>	
+                    @endforeach									
+                  </select>
+                  
+								</div>
+                  
+                
+                  <label for="inputEmail3" class="col-sm-3 control-label">Tgl Pinjam</label>
                   
 
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="id_jenis" id="inputEmail3" placeholder="Id Jenis">
+                  <div class="col-sm-9">
+                    <input type="date" class="form-control" name="tgl_pinjam" id="inputEmail3" placeholder="Tanggal pinjam">
+                  
                   </div>
-                  <label for="inputEmail3" class="col-sm-2 control-label">Judul</label>
+                 
+                </div>
+                <label for="inputEmail3" class="col-sm-3 control-label"> Status Pinjam</label>
                   
 
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="judul" id="inputEmail3" placeholder="Judul Buku">
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" name="status_pinjam" id="inputEmail3" value="Dipinjam">
                   </div>
-                  <label for="inputEmail3" class="col-sm-2 control-label">Tahun</label>
-                  
 
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="tahun_terbit" id="inputEmail3" placeholder="Tahun terbit">
-                  </div>
-                  <label for="inputEmail3" class="col-sm-2 control-label">Halaman</label>
-                  
-
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="halaman" id="inputEmail3" placeholder="Halaman">
-                  </div>
-                  <label for="inputEmail3" class="col-sm-2 control-label">Penulis</label>
-                  
-
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="penulis" id="inputEmail3" placeholder="Penulis">
-                  </div>
-                  <label for="inputEmail3" class="col-sm-2 control-label">Stok</label>
-                  
-
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="stok" id="inputEmail3" placeholder="Stok">
-                  </div>
+                 
                 </div>
             
               </div>
@@ -112,27 +108,30 @@
             <table class="table table-bordered table-striped">
               <thead>
                <tr>
-                <th>Id Jenis</th>
-                <th>Judul</th>
-                <th>Tahun terbit</th>
-                <th>Halaman</th>
-                <th>Penulis</th>
-                <th>Stok</th>
+               <th>Id Transaksi</th>
+                <th>Judul Buku</th>
+                <th>Tanggal Pinjam</th>
+                <th>Tanggal Kembali</th>
+                <th>Status pinjam</th>
+                
                  <th>Aksi</th>
 
-                
-             @foreach($kategori as $kategori)
+              
+             @foreach($transaksi as $transaksi)
                  <tr>
-                  <td>{{$kategori->id_jenis}}</td>
-                  <td>{{$kategori->judul}}</td>
-                  <td>{{$kategori->tahun_terbit}}</td>
-                  <td>{{$kategori->halaman}}</td>
-                  <td>{{$kategori->penulis}}</td>
-                  <td>{{$kategori->stok}}</td>
-
+                 <td>{{$transaksi->id}}</td>
+                  <td>{{$transaksi->buku->judul}}</td>
+                  <td>{{$transaksi->tgl_pinjam}}</td>
+                  <td>{{$transaksi->tgl_kembali}}</td>
+                  <?php if($transaksi->tgl_kembali == null) {?>                  
+                  <td><span class="btn btn-danger btn-sm">{{$transaksi->status_pinjam}}</span></td>
+                  <?php } else {?>
+                  <td><span class="btn btn-success btn-sm">{{$transaksi->status_pinjam}}</span></td>
+                  <?php } ?>
+                   
                      <td>
-                     <a href="/datakategori/edit/{{ $kategori->id_buku }}">Edit</a> | 
-                     <a href="/datakategori/destroy/{{ $kategori->id_buku }}">Hapus</a></td>
+                     <a href="/datatransaksi/edittransaksi/{{ $transaksi->id }}">Edit</a> | 
+                     <a href="/datatransaksi/destroy/{{ $transaksi->id }}"onClick="return confirm('Are you sure want to delete?')">Hapus</a></td>
     </tr>
   @endforeach
             </table> 

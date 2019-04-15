@@ -12,24 +12,24 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
-
-Route::get('kategori', function () {
-    return "halaman kategori";
+//buku
+Route::get('buku', function () {
+    return "halaman buku";
 });
 
-Route::get('kategori/{id}', function ($id) {
-    return "halaman detail kategori " .$id;
+Route::get('buku/{id}', function ($id) {
+    return "halaman detail buku " .$id;
 });
 
 Route::get('dashboard', function () {
     return view('dashboard/index');
 });
 
-//Route::resource('kategori','KategoriController');
-Route::resource('kategori','KategoriController')->except(['delete','destroy']) ;
+//Route::resource('buku','bukuController');
+Route::resource('buku','bukuController')->except(['delete','destroy']) ;
 
 
 Route::get('master', function () {
@@ -37,11 +37,29 @@ Route::get('master', function () {
 });
 
 
-Route::resource('kategori','KategoriController');
 
-Route::get('datakategori/edit/{id}','KategoriController@edit');
-Route::post('datakategori/update','KategoriController@update');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'auth'], function(){
+    Route::resource('buku','bukuController');
+    Route::get('databuku/edit/{id}','bukuController@edit');
+    Route::post('databuku/update','bukuController@update');
+    Route::get('databuku/destroy/{id}','bukuController@destroy');
+
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    //jenis
+
+    Route::resource('jenis','JenisController');
+    Route::get('datajenis/editjenis/{id}','JenisController@edit');
+    Route::post('datajenis/update','JenisController@update');
+    Route::get('datajenis/destroy/{id}','JenisController@destroy');
+
+    //transaksi
+    Route::resource('transaksi','transaksiController');
+    Route::get('datatransaksi/edittransaksi/{id}','transaksiController@edit');
+    Route::post('datatransaksi/update','transaksiController@update');
+    Route::get('datatransaksi/destroy/{id}','transaksiController@destroy');
+});
+

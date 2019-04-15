@@ -2,7 +2,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Form Search</h3>
             </div>
-            <form action="/kategori" method="GET">
+            <form action="/buku" method="GET">
 
             <div class="box-body">
               <div class="row">
@@ -26,7 +26,7 @@
     <!-- Content Header (Page header) -->
     <!-- Content Header (Page header) -->
     <section class="content-header">
-<h1>Data Kategori</h1>
+<h1>Data Buku</h1>
 <br>
      
     
@@ -39,7 +39,7 @@
             </div>
 
             <div class="box-body">
-              <a href="kategori"> Lihat Semua Data</a>
+              <a href="buku"> Lihat Semua Data</a>
             <table class="table table-bordered table-striped">
               <thead>
                 <tr>
@@ -50,15 +50,15 @@
                 <th>Halaman</th>
                 <th>Penulis</th>
                 <th>Stok</th>
-             @foreach($kategori as $kategori)
+             @foreach($buku as $buku)
                  <tr>
-                 <td>{{$kategori->id_buku}}</td>
-                  <td>{{$kategori->id_jenis}}</td>
-                  <td>{{$kategori->judul}}</td>
-                  <td>{{$kategori->tahun_terbit}}</td>
-                  <td>{{$kategori->halaman}}</td>
-                  <td>{{$kategori->penulis}}</td>
-                  <td>{{$kategori->stok}}</td>
+                 <td>{{$buku->id_buku}}</td>
+                  <td>{{$buku->id_jenis}}</td>
+                  <td>{{$buku->judul}}</td>
+                  <td>{{$buku->tahun_terbit}}</td>
+                  <td>{{$buku->halaman}}</td>
+                  <td>{{$buku->penulis}}</td>
+                  <td>{{$buku->stok}}</td>
                    
                      <td><a href="">Edit</a> | <a href="">Hapus</a></td>
     </tr>

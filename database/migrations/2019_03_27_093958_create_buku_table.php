@@ -21,6 +21,7 @@ class CreateBukuTable extends Migration
             $table->string('halaman',20);
             $table->string('penulis',100);
             $table->string('stok',20);
+            $table->string('gambarbuku',200);
             
         });
     }

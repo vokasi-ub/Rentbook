@@ -37,7 +37,7 @@
             <th> Stok </th>
             <th> Aksi </th>
   </tr> 
-        @foreach($kategori as $row)
+        @foreach($buku as $row)
         <tr>
             
                 <th>{{ $row->id_buku }}</th>

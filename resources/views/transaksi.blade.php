@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>RENTBOOK</title>
+  <title>AdminLTE 2 | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -47,12 +49,106 @@
   </header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
-  @include('template.sidebar')
+
   </aside>
 
   <div class="content-wrapper">
   @yield('content')
-  </div>
+  
+  <table border=5>
+
+        <tr>
+            <th> Id Buku </th>
+            <th> Tanggal Pinjam </th>
+            <th> Tanggal Kembali </th>
+            <th> Status pinjam </th>
+            <th> Aksi </th>
+  </tr>
+        @foreach($transaksi as $row)
+        <tr>
+            
+                <th>{{ $row->id }}</th>
+                <th>{{ $row->id_buku }}</th>
+                <th>{{ $row->tgl_pinjam }}</th>
+                <th>{{ $row->tgl_kembali }}</th>
+                <th>{{ $row->status_pinjam }}</th>
+                <th>{{ $row->Aksi }}</th>
+                <th> 
+                    <a href="/id/edit/{{$row->id}}">Edit</a>
+                    <a href="/id/hapus/{{$row->id}}">Hapus</a>
+        </tr>
+        @endforeach
+</table>
+
+<div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Bordered Table</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-bordered">
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Task</th>
+                  <th>Progress</th>
+                  <th style="width: 40px">Label</th>
+                </tr>
+                <tr>
+                  <td>1.</td>
+                  <td>Update software</td>
+                  <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-red">55%</span></td>
+                </tr>
+                <tr>
+                  <td>2.</td>
+                  <td>Clean database</td>
+                  <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-yellow">70%</span></td>
+                </tr>
+                <tr>
+                  <td>3.</td>
+                  <td>Cron job running</td>
+                  <td>
+                    <div class="progress progress-xs progress-striped active">
+                      <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-light-blue">30%</span></td>
+                </tr>
+                <tr>
+                  <td>4.</td>
+                  <td>Fix and squish bugs</td>
+                  <td>
+                    <div class="progress progress-xs progress-striped active">
+                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-green">90%</span></td>
+                </tr>
+              </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">&laquo;</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">&raquo;</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- /.box -->
+
+         
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     @include('template.footer')
@@ -178,7 +274,7 @@
       <!-- /.tab-pane -->
       <!-- Settings tab content -->
       <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
+        <form method="post" action="/inputdata/store" method="post"> 
           <h3 class="control-sidebar-heading">General Settings</h3>
 
           <div class="form-group">
@@ -293,3 +389,4 @@
 <script src="{{ asset('tema/dist/js/demo.js') }}"></script>
 </body>
 </html>
+

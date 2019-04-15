@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\kategori;
+use App\transaksi;
+use App\buku;
 use DB;
 
 
-class kategoriController extends Controller
+class transaksiController extends Controller
 {
     
 /**
@@ -17,18 +18,16 @@ class kategoriController extends Controller
      */
     public function index(Request $request)
     {
-        //mencari data
-        if ($request->has('cari')) {
-            $kategori = \App\Kategori::where('judul','LIKE','%'.$request->cari.'%')->get();
-        } else {
-            $kategori = kategori::all();
-        }
-        return view('dashboard.kategori', compact('kategori'));
+        $id_buku = buku::all();
+        $transaksi = transaksi::with(['buku'])->when($request->keyword, function ($query) use ($request){
+            $query->where('id', 'like', "%{$request->keyword}%");
+        })->get();
+        return view('transaksi.transaksi', compact('transaksi','id_buku'));
     }
     //   public function search(Request $request)
     // {
     //     $query = $request->input('cari');
-    //     $hasil = kategori::where('nama_kategori', 'LIKE', '%' . $query . '%')->paginate(10);
+    //     $hasil = transaksi::where('id_jenis', 'LIKE', '%' . $query . '%')->paginate(10);
     //     return view('dashboard.result', compact('hasil', 'query'));
     // }
 
@@ -39,15 +38,17 @@ class kategoriController extends Controller
      */
     public function store(Request $request)
     {
-         DB::table('buku')->insert([
-             'id_jenis' => $request->id_jenis,
-             'judul' => $request->judul,
-             'tahun_terbit' => $request->tahun_terbit,
-             'halaman' => $request->halaman,
-             'penulis' => $request->penulis,
-             'stok' => $request->stok            
+         DB::table('transaksi')->insert([
+            'id' => $request->id,
+             'id_buku' => $request->id_buku,
+             'tgl_pinjam' => $request->tgl_pinjam,
+             'status_pinjam' => $request->status_pinjam         
         ]);
-         return redirect('/kategori');
+        DB::table('buku')->where('id_buku',$request->id_buku)->decrement('stok', 1);
+        
+    
+
+      return redirect ('/transaksi');
         
     }
 
@@ -71,11 +72,11 @@ class kategoriController extends Controller
     public function show($id)
     {
         //
-        $output = 'Daftar Kategori';
-        $kategori = kategori::get();
+        $output = 'Daftar transaksi';
+        $transaksi = transaksi::get();
         return view('show', array(
-          'kategori' => $output,
-          'kategori' => $kategori
+          'transaksi' => $output,
+          'transaksi' => $transaksi
         ));
     }
 
@@ -87,9 +88,9 @@ class kategoriController extends Controller
      */
     public function edit($id)
     {
-    $kategori = DB::table('buku')->where('id_buku',$id)->get();
+    $transaksi = DB::select('select a.*,b.* from transaksi a join buku b on a.id_buku = b.id_buku where a.id =?',[$id]);
     // passing data pegawai yang didapat ke view edit.blade.php
-    return view('dashboard.edit',['kategori' => $kategori]);
+    return view('transaksi.edittransaksi',compact('transaksi'));
     }
 
     /**
@@ -101,15 +102,17 @@ class kategoriController extends Controller
      */
     public function update(Request $request)
     {
-        DB::table('buku')->where('id_buku',$request->id)->
-        update(['id_jenis'=>$request->id_jenis,
-        'judul'=>$request->judul,
-        'tahun_terbit'=>$request->tahun_terbit,
-        'halaman'=>$request->halaman,
-        'penulis'=>$request->penulis,
-        'stok'=>$request->stok])
-        ;
-        return redirect('/kategori');
+        DB::table('transaksi')->where('id',$request->id)->
+        update([
+            'tgl_kembali'=> $request->tgl_kembali,
+            'status_pinjam'=> $request->status_pinjam
+            ]);
+     
+
+        DB::table('buku')->where('id_buku',$request->id_buku)->increment('stok', 1);
+           
+
+        return redirect('/transaksi');
     }
 
     /**
@@ -121,7 +124,7 @@ class kategoriController extends Controller
     
     public function destroy($id)
     {
-        DB::table('buku') -> where('id_buku',$id)->delete();
-        return redirect('/kategori');
+        DB::table('transaksi')->where('id',$id)->delete();
+        return redirect('/transaksi');
     }
 }

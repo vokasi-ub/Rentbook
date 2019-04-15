@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <!-- Content Header (Page header) -->
     <section class="content-header">
-<h1>Data Kategori</h1>
+<h1>Daftar Buku</h1>
 <br>
       
     
@@ -16,8 +16,8 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            @foreach($kategori as $p)
-            <form class="form-horizontal" action="/datakategori/update" method="post">
+            @foreach($buku as $p)
+            <form class="form-horizontal" action="/databuku/update" method="post" enctype="multipart/form-data" >
                {{ csrf_field() }}
               <div class="box-body">
                   <input type="hidden" name="id_buku" value="{{ $p->id_buku }}"> <br/>
@@ -25,47 +25,56 @@
                   <label for="inputEmail3" class="col-sm-2 control-label">Id Jenis </label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="id_jenis" value="{{ $p->id_jenis }}" placeholder="Id Jenis">
+                    <input type="text" class="form-control" name="id_jenis" value="{{ $p->id_jenis }}" placeholder="Id buku">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Judul</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">judul</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="judul" value="{{ $p->judul }}" placeholder="Judul">
+                    <input type="text" class="form-control" name="judul" value="{{ $p->judul }}" placeholder="judul">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Tahun terbit</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">tahun terbit</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="tahun_terbit" value="{{ $p->tahun_terbit }}" placeholder="Tahun terbit">
+                    <input type="text" class="form-control" name="tahun_terbit" value="{{ $p->tahun_terbit }}" placeholder="tahun terbit">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Halaman</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">halaman</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="halaman" value="{{ $p->halaman }}" placeholder="Halaman">
+                    <input type="text" class="form-control" name="halaman" value="{{ $p->halaman }}" placeholder="halaman">
                   </div>
                 </div>
+
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Penulis</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">penulis</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="penulis" value="{{ $p->penulis }}" placeholder="Penulis">
+                    <input type="text" class="form-control" name="penulis" value="{{ $p->penulis }}" placeholder="penulis">
                   </div>
                 </div>
+
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Stok</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">stok</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="stok" value="{{ $p->stok }}" placeholder="Stok">
+                    <input type="text" class="form-control" name="stok" value="{{ $p->stok }}" placeholder="stok">
                   </div>
                 </div>
-            
+
+              <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Gambar</label>
+
+                  <div class="col-sm-10">
+                    <input type="file" class="form-control" name="gambarbuku" value="{{ $p->gambarbuku }}" placeholder="stok">
+                  </div>
+                </div>
+
                 
-      
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
@@ -74,9 +83,10 @@
               </div>
               <!-- /.box-footer -->
             </form>
+            @endforeach
           </div>
         </section>
-        @endforeach
+        
 
     <!-- /.content -->
   
