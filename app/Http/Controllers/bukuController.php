@@ -114,7 +114,7 @@ class bukuController extends Controller
     public function update(Request $request)
     {
         if (empty($request->file('gambarbuku'))){
-            $buku = buku::find($request->gambarbuku);
+            $buku = buku::find($request->id_buku);
             $buku->id_jenis= $request->id_jenis;
             $buku->judul= $request->judul;
             $buku->tahun_terbit= $request->tahun_terbit;
@@ -129,7 +129,7 @@ class bukuController extends Controller
             $fileName = $file->getClientOriginalName();
             $request->file('gambarbuku')->move("image/", $fileName);
 
-            $buku = buku::find($request->gambarbuku);
+            $buku = buku::find($request->id_buku);
             $buku->id_jenis= $request->id_jenis;
             $buku->judul= $request->judul;
             $buku->tahun_terbit= $request->tahun_terbit;
@@ -137,7 +137,7 @@ class bukuController extends Controller
             $buku->penulis= $request->penulis;
             $buku->stok= $request->stok;
             $buku->gambarbuku= $request->gambarbuku;
-            $buku->buku = $fileName;
+            $buku->gambarbuku = $fileName;
     
             $buku->save();
         }
